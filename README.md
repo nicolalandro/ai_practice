@@ -1,1 +1,1 @@
-# ai_prpactice
+# ai_practice
