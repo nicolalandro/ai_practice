@@ -42,7 +42,7 @@ print(decision_tree.predict(transformed_pattern))
 
 
 from sklearn.ensemble import ExtraTreesClassifier
-decision_tree = ExtraTreesClassifier()
+decision_tree = ExtraTreesClassifier(n_estimators=100, n_jobs=12, bootstrap=False, min_samples_split=2, random_state=0)
 decision_tree.fit(train_examples, train_truths)
 prediction = decision_tree.predict(test_examples)
 
