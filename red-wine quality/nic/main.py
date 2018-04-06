@@ -5,8 +5,6 @@ from sklearn.neighbors import KNeighborsClassifier
 
 names = ['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 'chlorides', 'free sulfur dioxide',
          'total sulfur dioxide', 'density', 'pH', 'sulphates', 'alcohol', 'quality']
-names_without_quality = ['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 'chlorides',
-                         'free sulfur dioxide', 'total sulfur dioxide', 'density', 'pH', 'sulphates', 'alcohol']
 dataset = pd.read_csv('data/winequality-red.csv', names=names)
 
 examples = dataset.drop(['quality'], axis=1).values
