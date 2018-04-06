@@ -52,3 +52,11 @@ exponential_transponse = np.power([mean_class3, mean_class4, mean_class5, mean_c
 np.savetxt('nic/corr_media_exp_diff.txt',
            np.corrcoef(exponential_transponse))
 
+# Difference from all elements mean
+mean_array = [mean_class3, mean_class4, mean_class5, mean_class6, mean_class7, mean_class8]
+for index1, el1 in enumerate(mean_array):
+    for index2 in range(index1 + 1, len(mean_array)):
+        if index1 != index2:
+            el2 = mean_array[index2]
+            for name in names:
+                print(str(index1) + '-' + str(index2) + ', ' + name + ': ' + str((el1 - el2)[name]))
