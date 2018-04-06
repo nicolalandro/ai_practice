@@ -2,7 +2,6 @@ import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
 
 names = ['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 'chlorides', 'free sulfur dioxide',
          'total sulfur dioxide', 'density', 'pH', 'sulphates', 'alcohol', 'quality']
@@ -20,8 +19,22 @@ classifier.fit(train_examples, train_truths)
 prediction = classifier.predict(test_examples)
 print("knn result:", accuracy_score(test_truths, prediction))
 
+from sklearn.svm import SVC
+
 classifier = SVC()
 classifier.fit(train_examples, train_truths)
 prediction = classifier.predict(test_examples)
-print("svn result:", accuracy_score(test_truths, prediction))
+print("svc result:", accuracy_score(test_truths, prediction))
 
+from sklearn.svm import LinearSVC
+
+classifier = LinearSVC()
+classifier.fit(train_examples, train_truths)
+prediction = classifier.predict(test_examples)
+print("linear svc result:", accuracy_score(test_truths, prediction))
+
+from sklearn.tree import DecisionTreeClassifier
+classifier = DecisionTreeClassifier()
+classifier.fit(train_examples, train_truths)
+prediction = classifier.predict(test_examples)
+print("decision tree result:", accuracy_score(test_truths, prediction))
