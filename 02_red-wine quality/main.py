@@ -12,13 +12,13 @@ dataset = pd.read_csv('data/winequality-red.csv', names=names)
 
 examples = []
 truths = []
-
 for index, row in dataset.iterrows():
     example = []
     for name in names_without_quality:
         example.append(float(row[name]))
     examples.append(example)
     truths.append(row['quality'])
+
 
 train_examples, test_examples, train_truths, test_truths = train_test_split(examples, truths, test_size=0.33)
 
@@ -27,7 +27,12 @@ classifier.fit(train_examples, train_truths)
 prediction = classifier.predict(test_examples)
 # print("result:", accuracy_score(test_truths, prediction))
 corrcoef = np.corrcoef(examples)
-for row in corrcoef:
-    if np.amin(row) <= 0.6:
-        #TODO scoprire come trovare l'indice dell'elemento dal numpy.ndarray
-        print(row.index(np.amin(row)))
+cov_matrix = np.cov(examples)
+
+# uniques = []
+# for row in corrcoef:
+#     if np.amin(row) <= 0.6:
+#         print(list(row).index(np.amin(row)))
+#         uniques.append(list(row).index(np.amin(row)))
+#
+# print set(uniques)
