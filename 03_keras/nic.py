@@ -24,6 +24,7 @@ from keras.layers import Dense
 # model.add(Dense(units=64, activation='relu', input_dim=4))
 # model.add(Dense(units=64, activation='sigmoid', input_dim=4))
 # model.add(Dense(units=3, activation='softmax'))
+model.add(Dense(units=8, activation='relu', input_dim=4))
 model.add(Dense(units=16, activation='relu', input_dim=4))
 model.add(Dense(units=3, activation='softmax'))
 
