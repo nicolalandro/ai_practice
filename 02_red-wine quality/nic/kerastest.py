@@ -28,11 +28,12 @@ test_truths = np.array(list(map(class_number_to_array, test_truths)))
 
 model = Sequential()
 model.add(Dense(units=22, activation='relu', input_dim=11))
+model.add(Dense(units=45, activation='sigmoid', input_dim=11))
 model.add(Dense(units=10, activation='softmax'))
 
 model.compile(loss=categorical_crossentropy,
               optimizer=SGD(lr=0.01, momentum=0.9, nesterov=True))
-model.fit(train_examples, train_truths, epochs=20, batch_size=32)
+model.fit(train_examples, train_truths, epochs=10, batch_size=32)
 
 loss_and_metrics = model.evaluate(test_examples, test_truths, batch_size=128)
 print("loss and metrics: ", loss_and_metrics)
