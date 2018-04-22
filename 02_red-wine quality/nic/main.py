@@ -40,7 +40,7 @@ prediction = classifier.predict(test_examples)
 print("decision tree result:", accuracy_score(test_truths, prediction))
 
 # use mean to train
-print '<---------------------------------- addestro con la media ---------------------------------->'
+print('<---------------------------------- addestro con la media ---------------------------------->')
 class_3 = dataset[dataset['quality'] == 3].drop(['quality'], axis=1)
 class_4 = dataset[dataset['quality'] == 4].drop(['quality'], axis=1)
 class_5 = dataset[dataset['quality'] == 5].drop(['quality'], axis=1)
