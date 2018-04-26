@@ -1,11 +1,13 @@
-import pandas as pd
-from keras.backend import sparse_categorical_crossentropy, categorical_crossentropy
-from keras.layers import Dense
-from keras.optimizers import SGD
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from keras.models import Sequential
 import numpy as np
+import pandas as pd
+from keras.backend import categorical_crossentropy
+from keras.layers import Dense
+from keras.models import Sequential
+from keras.optimizers import SGD
+from sklearn.metrics import accuracy_score, recall_score, confusion_matrix
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import seaborn
 
 
 def class_number_to_array(n):
@@ -21,10 +23,22 @@ dataset = pd.read_csv('data/winequality-red.csv', names=names)
 examples = dataset.drop(['quality'], axis=1).values
 truths = dataset['quality'].get_values()
 
+sns_plot = seaborn.countplot(truths)
+sns_plot.figure.savefig("keras_info/rating_tot.png")
+plt.close()
+
 train_examples, test_examples, train_truths, test_truths = train_test_split(examples, truths, test_size=0.33)
+
+sns_plot = seaborn.countplot(train_truths)
+sns_plot.figure.savefig("keras_info/rating_train.png")
+plt.close()
+
+sns_plot = seaborn.countplot(test_truths)
+sns_plot.figure.savefig("keras_info/rating_test.png")
+plt.close()
+
 train_truths = np.array(list(map(class_number_to_array, train_truths)))
 test_truths = np.array(list(map(class_number_to_array, test_truths)))
-
 
 model = Sequential()
 model.add(Dense(units=22, activation='relu', input_dim=11))
@@ -43,3 +57,18 @@ prediction = prediction.argmax(1)
 test_truths = test_truths.argmax(1)
 
 print("accuracy score: ", accuracy_score(test_truths, prediction))
+print("decision tree recal macro: ", recall_score(test_truths, prediction, average='macro'))
+print("decision tree recal micro: ", recall_score(test_truths, prediction, average='micro'))
+print("decision tree recal weighted: ", recall_score(test_truths, prediction, average='weighted'))
+print("decision tree recal none: ", recall_score(test_truths, prediction, average=None))
+
+cnf_matrix = confusion_matrix(test_truths, prediction)
+sns_plot = seaborn.heatmap(cnf_matrix, annot=True, center=0)
+sns_plot.figure.savefig("keras_info/cnf_matrix.png")
+plt.close()
+
+
+normalized_cnf_matrix = cnf_matrix.astype('float') / cnf_matrix.sum(axis=1)[:, np.newaxis]
+sns_plot = seaborn.heatmap(normalized_cnf_matrix, annot=True, center=0)
+sns_plot.figure.savefig("keras_info/normalized_cnf_matrix.png")
+plt.close()
