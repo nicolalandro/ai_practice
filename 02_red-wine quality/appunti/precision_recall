@@ -1,0 +1,2 @@
+precision (sulla classe): su n campioni riconosciuti di classe A, di cui m sono davvero di classe A, è n/m
+recall (sulla classe): su n campioni riconosciuti di classe A, dato che ce n'erano x totali di classe A, è n/x
