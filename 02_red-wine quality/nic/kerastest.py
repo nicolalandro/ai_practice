@@ -11,14 +11,17 @@ import seaborn
 
 
 def class_number_to_array(n):
-    out = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    out[n] = 1.0
+    # out = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    # out = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    out = [0.0, 0.0]
+    out[n - 5] = 1.0
     return out
 
 
 names = ['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 'chlorides', 'free sulfur dioxide',
          'total sulfur dioxide', 'density', 'pH', 'sulphates', 'alcohol', 'quality']
 dataset = pd.read_csv('data/winequality-red.csv', names=names)
+dataset = dataset[dataset.quality > 4][dataset.quality < 7]
 
 examples = dataset.drop(['quality'], axis=1).values
 truths = dataset['quality'].get_values()
@@ -43,7 +46,7 @@ test_truths = np.array(list(map(class_number_to_array, test_truths)))
 model = Sequential()
 model.add(Dense(units=22, activation='relu', input_dim=11))
 model.add(Dense(units=45, activation='sigmoid', input_dim=11))
-model.add(Dense(units=10, activation='softmax'))
+model.add(Dense(units=2, activation='softmax'))
 
 model.compile(loss=categorical_crossentropy,
               optimizer=SGD(lr=0.01, momentum=0.9, nesterov=True))
