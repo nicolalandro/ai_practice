@@ -23,7 +23,7 @@ print(accuracy_score(twenty_test.target, predicted))
 clf2 = Pipeline([
     ('vect', CountVectorizer()),
     ('tfidf', TfidfTransformer()),
-    ('clf', GaussianNB())
+    ('clf', LogisticRegressionWithLBFGS())
 ])
 
 clf2.fit(twenty_train.data, twenty_train.target)
